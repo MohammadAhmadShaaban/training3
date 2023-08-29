@@ -1,0 +1,42 @@
+﻿@model WebApplication31.Models.Categotry
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Categotry</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategorySalePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategorySalePrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryBuyPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryBuyPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Training1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categotry">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar(max)" />
+          <Property Name="CategorySalePrice" Type="real" />
+          <Property Name="CategoryBuyPrice" Type="real" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="SalesID" />
+          </Key>
+          <Property Name="SalesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <Association Name="FK_Sales_Categotry">
+          <End Role="Categotry" Type="Self.Categotry" Multiplicity="0..1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categotry">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Training1ModelStoreContainer">
+          <EntitySet Name="Categotry" EntityType="Self.Categotry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Sales_Categotry" Association="Self.FK_Sales_Categotry">
+            <End Role="Categotry" EntitySet="Categotry" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Training1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categotry">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CategorySalePrice" Type="Single" />
+          <Property Name="CategoryBuyPrice" Type="Single" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Categotry" FromRole="Categotry" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SalesID" />
+          </Key>
+          <Property Name="SalesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Categotry" Relationship="Self.FK_Sales_Categotry" FromRole="Sales" ToRole="Categotry" />
+        </EntityType>
+        <Association Name="FK_Sales_Categotry">
+          <End Role="Categotry" Type="Self.Categotry" Multiplicity="0..1" />
+          <End Role="Sales" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categotry">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Training1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categotries" EntityType="Self.Categotry" />
+          <EntitySet Name="Sales" EntityType="Self.Sale" />
+          <AssociationSet Name="FK_Sales_Categotry" Association="Self.FK_Sales_Categotry">
+            <End Role="Categotry" EntitySet="Categotries" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Training1ModelStoreContainer" CdmEntityContainer="Training1Entities">
+          <EntitySetMapping Name="Categotries">
+            <EntityTypeMapping TypeName="Training1Model.Categotry">
+              <MappingFragment StoreEntitySet="Categotry">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategorySalePrice" ColumnName="CategorySalePrice" />
+                <ScalarProperty Name="CategoryBuyPrice" ColumnName="CategoryBuyPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="Training1Model.Sale">
+              <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="SalesID" ColumnName="SalesID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

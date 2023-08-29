@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Training1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categotry">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar(max)" />
+    <Property Name="CategorySalePrice" Type="real" />
+    <Property Name="CategoryBuyPrice" Type="real" />
+  </EntityType>
+  <EntityType Name="Sales">
+    <Key>
+      <PropertyRef Name="SalesID" />
+    </Key>
+    <Property Name="SalesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryID" Type="int" />
+    <Property Name="Quantity" Type="int" />
+  </EntityType>
+  <Association Name="FK_Sales_Categotry">
+    <End Role="Categotry" Type="Self.Categotry" Multiplicity="0..1" />
+    <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categotry">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Training1ModelStoreContainer">
+    <EntitySet Name="Categotry" EntityType="Self.Categotry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Sales_Categotry" Association="Self.FK_Sales_Categotry">
+      <End Role="Categotry" EntitySet="Categotry" />
+      <End Role="Sales" EntitySet="Sales" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
